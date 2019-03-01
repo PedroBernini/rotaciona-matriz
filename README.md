@@ -1,6 +1,6 @@
 # Rotaciona Matriz
 
-# Objetivo
+## Objetivo
 Este programa utiliza múltiplas threads para rotacionar uma matriz N x M (N linhas por M colunas) 90º no sentido horário. O programa deverá ser escrito para o sistema operacional Linux e obrigatoriamente utilizar a biblioteca POSIX Threads.
 
 ## Descrição do problema a ser resolvido
