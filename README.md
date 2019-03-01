@@ -8,3 +8,5 @@ Considere uma matriz N x M (N linhas por M colunas) que contém valores em ponto
     
 ## Entradas e saídas de valores para o programa
 Entradas: os valores N, M, T, <Arquivo Entrada> e <Arquivo Saída>  -- respectivamente, as dimensões da matriz (N x M); o número de threads; e o arquivo onde estão os dados de entrada e o arquivo onde devem estar os dados de saída -- devem ser informados pelo usuário no início do programa. Para os testes, considere valoresgrandes (maiores ou iguais a 100) para N e M.
+
+Saídas: arquivo com a matriz rotacionada. O arquivo gerado deve ter o mesmo nome do arquivo original com a extensão .rot.
