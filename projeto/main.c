@@ -117,7 +117,10 @@ int main(){
 
 
     /* PARTE 3 - ROTACIONAR MATRIZ */
-    double matrizRot[n][m];
+    double **matrizRot;
+    matrizRot = (double **) malloc (n * sizeof (double *));
+    for (int i = 0; i < n; i++)
+        matrizRot[i] = (double *) malloc (m * sizeof (double));
 
     int nLeituras = m*n/nThreads;
     int sobra = m*n%nThreads;
@@ -133,7 +136,7 @@ int main(){
 	    vArgumentos[i].nLeituras += sobra;
 	vArgumentos[i].posicaoInicial = nLeituras*i + 1;
 	strcpy(vArgumentos[i].nomeArquivo,nomeArquivo);
-	vArgumentos[i].elemento = matrizRot[0];
+	vArgumentos[i].elemento = matrizRot;
 
 	pthread_create(&threadID[i], NULL, threadRotacionarValores, (void *)&vArgumentos[i]);
     }

@@ -12,7 +12,7 @@ typedef struct Argumentos{
     int nLeituras;
     int posicaoInicial;
     char nomeArquivo[30];
-    double *elemento;
+    double **elemento;
 }argumentos;
 
 //Variáveis globais do programa
@@ -76,15 +76,8 @@ void *threadRotacionarValores(void *vArgumentos){
         linhaRot = coluna;
         colunaRot = colunaReferencia - linha;
 
-	/*printf("Thread responsavel: %da Thread\n",argumentos->idThread);
-	printf("Elemento Atual = %lf\n", elemento);
-	printf("Posicao na matriz original = MatrizOriginal[%d][%d]\n", linha, coluna);
-	printf("Posicao na matriz Rotacionada = MatrizRotacionada[%d][%d]\n", linhaRot, colunaRot);
-	printf("Ponteiro para a matriz na memoria = Matriz[%d]\n",linhaRot * argumentos->nColunas + colunaRot);
-	printf("---------------------------------------------------------------------\n");*/
-
 	//Coloca o elemento da matriz original na posição correta da matriz rotacionada
-	argumentos->elemento[linhaRot * argumentos->nLinhas + colunaRot] = elemento; 
+	argumentos->elemento[linhaRot][colunaRot] = elemento; 
 
 	if(coluna == argumentos->nColunas-1){
 	    coluna = 0;
