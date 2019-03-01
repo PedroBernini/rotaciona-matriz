@@ -1,7 +1,7 @@
 /**
  * Objetivo: Este programa deve rotacionar uma matriz N x M (N linhas por M colunas) 90º no sentido horário.
  * Autor: Pedro Henrique Bernini Silva.
- * Atualizado em: Seg 01 Mar 2019.
+ * Atualizado em: Sex 01 Mar 2019.
 **/
  
 #include <stdio.h>
