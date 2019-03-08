@@ -48,6 +48,26 @@ int main(int argc, char *argv[]){
     printf("--------------------------------------------------------\n");
     
     int i;
+    int j;
+    double elemento;
+
+    double **matrizOrg;
+    matrizOrg = (double **) malloc (n * sizeof (double *));
+    for (i = 0; i < n; i++)
+        matrizOrg[i] = (double *) malloc (m * sizeof (double));
+
+    char diretorio[100] = "";
+    strcat(diretorio,"../arquivos/matrizes/");
+    strcat(diretorio,nomeArquivo);
+    FILE *arquivo = fopen(diretorio,"r");
+
+    for(i=0;i<n;i++){
+	for(j=0;j<m;j++){
+            fscanf(arquivo,"%lf",&elemento);
+            matrizOrg[i][j] = elemento;
+        }
+    }
+
     double **matrizRot;
     matrizRot = (double **) malloc (m * sizeof (double *));
     for (i = 0; i < m; i++)
@@ -66,8 +86,8 @@ int main(int argc, char *argv[]){
 	if(i == (nThreads - 1))
 	    vArgumentos[i].nLeituras += sobra;
 	vArgumentos[i].posicaoInicial = nLeituras*i + 1;
-	strcpy(vArgumentos[i].nomeArquivo,nomeArquivo);
-	vArgumentos[i].elemento = matrizRot;
+	vArgumentos[i].matrizOrg = matrizOrg;
+	vArgumentos[i].matrizRot = matrizRot;
 
 	pthread_create(&threadID[i], NULL, threadRotacionarValores, (void *)&vArgumentos[i]);
     }
@@ -76,20 +96,19 @@ int main(int argc, char *argv[]){
     for(i=0; i<nThreads; i++)
         pthread_join(threadID[i], NULL);
 
-    char diretorio[100] = "";
+    strcpy(diretorio,"");
     strcat(diretorio,"../arquivos/matrizes/");
     strcat(diretorio,nomeArquivoFinal);
-    FILE *arquivo = fopen(diretorio,"w");
+    FILE *arquivoFinal = fopen(diretorio,"w");
 
-    int j;
     for(i=0;i<m;i++){
-        fprintf(arquivo," ");
+        fprintf(arquivoFinal," ");
 	for(j=0;j<n;j++){
-	    fprintf(arquivo, "%lf  ", matrizRot[i][j]);
+	    fprintf(arquivoFinal, "%lf  ", matrizRot[i][j]);
             if(j != (n-1))
-		fprintf(arquivo," ");
+		fprintf(arquivoFinal," ");
         }
-	fprintf(arquivo,"\n");
+	fprintf(arquivoFinal,"\n");
     }
 
     printf("\nMatriz rotacionada com sucesso!\n");

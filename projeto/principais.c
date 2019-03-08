@@ -11,8 +11,8 @@ typedef struct Argumentos{
     int nThreads;
     int nLeituras;
     int posicaoInicial;
-    char nomeArquivo[30];
-    double **elemento;
+    double **matrizOrg;
+    double **matrizRot;
 }argumentos;
 
 //Variáveis globais do programa
@@ -31,12 +31,6 @@ void *threadRotacionarValores(void *vArgumentos){
     //Calcula a posição de referência na matriz que equivale a posição [0][0] da matriz original
     int linhaReferencia = 0; 
     int colunaReferencia = argumentos->nLinhas - 1;
-
-    //Abre arquivo da matriz
-    char diretorio[100] = "";
-    strcat(diretorio,"../arquivos/matrizes/");
-    strcat(diretorio,argumentos->nomeArquivo);
-    FILE *arquivo = fopen(diretorio,"r");
 
     //Calcula índice linha segundo posição inicial
     int linha;
@@ -59,24 +53,17 @@ void *threadRotacionarValores(void *vArgumentos){
     int linhaRot;
     int colunaRot;
 
-    //Percorre matriz até a posição inicial 
-    register int i;
-    argumentos->posicaoInicial--;
-    for(i=1;i<=argumentos->posicaoInicial;i++){
-        fscanf(arquivo,"%lf",&elemento);
-    }
-
     //Lê um elemento e salva na matriz rotacionada nLeitura vezes
     int j;
     for(j=0;j<argumentos->nLeituras;j++){
 
-        fscanf(arquivo,"%lf",&elemento);
+        elemento = argumentos->matrizOrg[linha][coluna];
     
         linhaRot = coluna;
         colunaRot = colunaReferencia - linha;
 
 	//Coloca o elemento da matriz original na posição correta da matriz rotacionada
-	argumentos->elemento[linhaRot][colunaRot] = elemento; 
+	argumentos->matrizRot[linhaRot][colunaRot] = elemento; 
 
 	if(coluna == argumentos->nColunas-1){
 	    coluna = 0;
