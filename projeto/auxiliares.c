@@ -31,7 +31,6 @@ void geraMatriz(char linhas[6], char colunas[6], char arquivo[30]) {
     strcat(comando,colunas);
     strcat(comando,"../arquivos/matrizes/");
     strcat(comando,arquivo);
-    strcat(comando,".dat");
 
     system(comando);
 }
