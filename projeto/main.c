@@ -18,6 +18,12 @@ int main(int argc, char *argv[]){
     clock_t tempos[4];
     tempos[0] = clock();
     
+    if(argc != 6){
+	printf("\nArgumentos invalidos!\n");
+	printf("Tente: ./<Nome do Executavel> <Quantidade de Linhas> <Quantidade de Colunas> <Numero de Threads> <Nome do Arquivo de Entrada> <Nome do Arquivo de Saida>\n\n");
+	return 0;
+    }
+	
     //Imprime cabeçalho
     header();
    
