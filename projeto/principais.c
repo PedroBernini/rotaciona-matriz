@@ -55,6 +55,7 @@ void *threadRotacionarValores(void *vArgumentos){
 
     //Lê um elemento e salva na matriz rotacionada nLeitura vezes
     int j;
+    int k = 0;
     for(j=0;j<argumentos->nLeituras;j++){
 
         elemento = argumentos->matrizOrg[linha][coluna];
@@ -63,8 +64,8 @@ void *threadRotacionarValores(void *vArgumentos){
         colunaRot = colunaReferencia - linha;
 
 	//Coloca o elemento da matriz original na posição correta da matriz rotacionada
-	argumentos->matrizRot[linhaRot][colunaRot] = elemento; 
-
+	argumentos->matrizRot[linhaRot][colunaRot] = elemento;
+	
 	if(coluna == argumentos->nColunas-1){
 	    coluna = 0;
 	    linha++;

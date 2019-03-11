@@ -1,18 +1,23 @@
 /**
  * Objetivo: Este programa deve rotacionar uma matriz N x M (N linhas por M colunas) 90º no sentido horário.
  * Autor: Pedro Henrique Bernini Silva.
- * Atualizado em: Sex 08 Mar 2019.
+ * Atualizado em: Sex 11 Mar 2019.
 **/
  
 #include <stdio.h>
 #include <string.h>
 #include <pthread.h>
+#include <time.h>
 
 #include "principais.c"
 #include "auxiliares.c"
 
 int main(int argc, char *argv[]){
 
+    //Medir tempo de todo o programa
+    clock_t tempos[4];
+    tempos[0] = clock();
+    
     //Imprime cabeçalho
     header();
    
@@ -76,6 +81,9 @@ int main(int argc, char *argv[]){
     int nLeituras = n*m/nThreads;
     int sobra = n*m%nThreads;
     
+    //Medir tempo de execução da rotação da matriz
+    tempos[2] = clock();
+
     //Cria threads passando argumentos necessários
     for(i=0; i<nThreads; i++){
 	vArgumentos[i].idThread = i + 1;
@@ -95,6 +103,9 @@ int main(int argc, char *argv[]){
     //Faz com que a main() não termine antes das outras threads
     for(i=0; i<nThreads; i++)
         pthread_join(threadID[i], NULL);
+    
+    tempos[3] = clock();
+    double TempoRotacao = (tempos[3] - tempos[2]) * 1000.0 / CLOCKS_PER_SEC;
 
     strcpy(diretorio,"");
     strcat(diretorio,"../arquivos/matrizes/");
@@ -111,8 +122,13 @@ int main(int argc, char *argv[]){
 	fprintf(arquivoFinal,"\n");
     }
 
+    tempos[1] = clock();
+    double TempoPrograma = (tempos[1] - tempos[0]) * 1000.0 / CLOCKS_PER_SEC;
+
     printf("\nMatriz rotacionada com sucesso!\n");
     printf("Nome do arquivo: %s\n\n", nomeArquivoFinal);
-    
+    printf("Tempo gasto para rotacionar a matriz -> %g ms.\n", TempoRotacao);
+    printf("Tempo total do programa -> %g ms.\n\n", TempoPrograma);
+
     return 0;
 }
