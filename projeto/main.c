@@ -66,6 +66,12 @@ int main(int argc, char *argv[]){
     strcat(diretorio,nomeArquivo);
     FILE *arquivo = fopen(diretorio,"r");
 
+    if (arquivo == NULL) {
+	printf("\nO arquivo '%s' não existe na pasta '../arquivos/matrizes/'\n", nomeArquivo);
+	printf("Finalizando programa.\n\n");
+	return 0;
+    }
+
     for(i=0;i<n;i++){
 	for(j=0;j<m;j++){
             fscanf(arquivo,"%lf",&elemento);
